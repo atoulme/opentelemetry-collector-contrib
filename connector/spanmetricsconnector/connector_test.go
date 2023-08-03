@@ -44,7 +44,7 @@ const (
 	notInSpanAttrName0     = "shouldBeInMetric"
 	notInSpanAttrName1     = "shouldNotBeInMetric"
 	regionResourceAttrName = "region"
-	DimensionsCacheSize    = 2
+	dimensionsCacheSize    = 2
 
 	sampleRegion   = "us-east-1"
 	sampleDuration = float64(11)
@@ -860,7 +860,7 @@ func TestMetricKeyCache(t *testing.T) {
 	require.NoError(t, err)
 	// 2 key was cached, 1 key was evicted and cleaned after the processing
 	assert.Eventually(t, func() bool {
-		return p.metricKeyToDimensions.Len() == DimensionsCacheSize
+		return p.metricKeyToDimensions.Len() == dimensionsCacheSize
 	}, 10*time.Second, time.Millisecond*100)
 
 	// consume another batch of traces
@@ -869,7 +869,7 @@ func TestMetricKeyCache(t *testing.T) {
 
 	// 2 key was cached, other keys were evicted and cleaned after the processing
 	assert.Eventually(t, func() bool {
-		return p.metricKeyToDimensions.Len() == DimensionsCacheSize
+		return p.metricKeyToDimensions.Len() == dimensionsCacheSize
 	}, 10*time.Second, time.Millisecond*100)
 }
 
@@ -949,7 +949,7 @@ func newConnectorImp(t *testing.T, mcon consumer.Metrics, defaultNullValue *stri
 		Histogram:              histogramConfig(),
 		Exemplars:              exemplarsConfig(),
 		ExcludeDimensions:      excludedDimensions,
-		DimensionsCacheSize:    DimensionsCacheSize,
+		DimensionsCacheSize:    dimensionsCacheSize,
 		Dimensions: []Dimension{
 			// Set nil defaults to force a lookup for the attribute in the span.
 			{stringAttrName, nil},
