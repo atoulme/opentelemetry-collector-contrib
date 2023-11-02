@@ -13,11 +13,12 @@ import (
 	"sync"
 	"time"
 
+	"go.uber.org/zap"
+
 	dtypes "github.com/docker/docker/api/types"
 	devents "github.com/docker/docker/api/types/events"
 	dfilters "github.com/docker/docker/api/types/filters"
 	docker "github.com/docker/docker/client"
-	"go.uber.org/zap"
 )
 
 const (
