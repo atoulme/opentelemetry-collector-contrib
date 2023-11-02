@@ -6,12 +6,12 @@ on:
     types: [opened, closed, synchronize]
 
 permissions:
-  actions: write
-  contents: read
+  pull-requests: write
+  contents: write
 
 jobs:
   FixMyPR:
-    if: github.event.comment.body == 'please fix my PR'
+    #if: ${{ github.event.issue.pull_request != null && github.event.comment.body == 'please fix my PR' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,10 +32,11 @@ jobs:
           key: changelog-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
       - name: "Fix PR"
         run: |
-          .github/workflows/scripts/check-collector-module-versions.sh
+          ./.github/workflows/scripts/check-collector-module-version.sh
           make generate gogci goporto gotidy crosslink genotelcontribcol gendependabot generate-gh-issue-templates
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git diff
           git add .
           git commit -a -m "Fix PR"
           git push
