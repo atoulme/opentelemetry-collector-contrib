@@ -15,10 +15,9 @@ import (
 	"sort"
 	"strings"
 
-	"gopkg.in/yaml.v3"
-
 	"github.com/google/go-github/v53/github"
 	"go.opentelemetry.io/collector/confmap/provider/fileprovider"
+	"gopkg.in/yaml.v3"
 )
 
 const maxDependabotUpdates = 220
