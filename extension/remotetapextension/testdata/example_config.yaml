@@ -1,9 +1,6 @@
 extensions:
   remotetap:
     endpoint: localhost:8080
-    taps:
-      - name: remotetap/1
-        endpoint: localhost:8081
 receivers:
   filelog:
     include: [ /tmp/file*.log ]
@@ -11,6 +8,8 @@ receivers:
 processors:
   remotetap:
     endpoint: localhost:8081
+    consumers:
+    - remotetap
 exporters:
   file:
     path: /tmp/output.log

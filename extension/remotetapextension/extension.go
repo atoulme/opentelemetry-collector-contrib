@@ -19,14 +19,24 @@ import (
 //go:embed html/*
 var httpFS embed.FS
 
+type tapInfo struct {
+	Name     string `mapstructure:"name" json:"name"`
+	Endpoint string `mapstructure:"endpoint" json:"endpoint"`
+}
+
 type remoteObserverExtension struct {
 	config   *Config
+	taps     []tapInfo
 	settings extension.CreateSettings
 	server   *http.Server
 }
 
+func (s *remoteObserverExtension) RegisterTap(name string, endpoint string) {
+	s.taps = append(s.taps, tapInfo{Name: name, Endpoint: endpoint})
+}
+
 func (s *remoteObserverExtension) handleTaps(resp http.ResponseWriter, _ *http.Request) {
-	b, err := json.Marshal(s.config.Taps)
+	b, err := json.Marshal(s.taps)
 	if err != nil {
 		s.settings.Logger.Error("error marshaling taps info", zap.Error(err))
 		resp.WriteHeader(500)

@@ -17,6 +17,8 @@ type Config struct {
 	// Limit is a float that indicates the maximum number of messages repeated
 	// through the websocket by this processor in messages per second. Defaults to 1.
 	Limit rate.Limit `mapstructure:"limit"`
+	// Consumers is the list of consumer extensions which use this processor.
+	Consumers []component.ID `mapstructure:"consumers"`
 }
 
 func createDefaultConfig() component.Config {

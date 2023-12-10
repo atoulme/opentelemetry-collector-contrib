@@ -19,6 +19,8 @@ import (
 	"go.opentelemetry.io/collector/processor"
 	"go.uber.org/zap"
 	"golang.org/x/net/websocket"
+
+	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/tapconsumer"
 )
 
 type wsprocessor struct {
@@ -27,6 +29,7 @@ type wsprocessor struct {
 	server            *http.Server
 	shutdownWG        sync.WaitGroup
 	cs                *channelSet
+	id                component.ID
 }
 
 var logMarshaler = &plog.JSONMarshaler{}
@@ -38,10 +41,22 @@ func newProcessor(settings processor.CreateSettings, config *Config) *wsprocesso
 		config:            config,
 		telemetrySettings: settings.TelemetrySettings,
 		cs:                newChannelSet(),
+		id:                settings.ID,
 	}
 }
 
 func (w *wsprocessor) Start(_ context.Context, host component.Host) error {
+	for _, consumer := range w.config.Consumers {
+		c, ok := host.GetExtensions()[consumer]
+		if !ok {
+			return fmt.Errorf("unknown extension %q", consumer)
+		}
+		tapC, ok := c.(tapconsumer.Consumer)
+		if !ok {
+			return fmt.Errorf("extension %q does not implement tapconsumer.Consumer", consumer)
+		}
+		tapC.RegisterTap(w.id, w.config.Endpoint)
+	}
 	var err error
 	var ln net.Listener
 	ln, err = w.config.HTTPServerSettings.ToListener()

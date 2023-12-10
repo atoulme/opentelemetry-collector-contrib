@@ -428,3 +428,4 @@ replaces:
   - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/azure => ../../pkg/translator/azure
   - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/skywalking => ../../pkg/translator/skywalking
   - github.com/open-telemetry/opentelemetry-collector-contrib/internal/collectd => ../../internal/collectd
+  - github.com/open-telemetry/opentelemetry-collector-contrib/pkg/tapconsumer => ../../pkg/tapconsumer
