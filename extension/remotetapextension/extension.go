@@ -31,8 +31,8 @@ type remoteObserverExtension struct {
 	server   *http.Server
 }
 
-func (s *remoteObserverExtension) RegisterTap(name string, endpoint string) {
-	s.taps = append(s.taps, tapInfo{Name: name, Endpoint: endpoint})
+func (s *remoteObserverExtension) RegisterTap(id component.ID, endpoint string) {
+	s.taps = append(s.taps, tapInfo{Name: id.String(), Endpoint: endpoint})
 }
 
 func (s *remoteObserverExtension) handleTaps(resp http.ResponseWriter, _ *http.Request) {
