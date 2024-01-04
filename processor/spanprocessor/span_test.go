@@ -655,3 +655,77 @@ func TestSpanProcessor_setStatusCodeConditionally(t *testing.T) {
 		})
 	}
 }
+
+func TestSpanProcessor_setStatusCodeOk(t *testing.T) {
+	factory := NewFactory()
+	cfg := &Config{
+		MatchConfig: filterconfig.MatchConfig{
+			Include: &filterconfig.MatchProperties{
+				Config: filterset.Config{
+					MatchType: "strict",
+				},
+				Attributes: []filterconfig.Attribute{
+					{Key: "http.status_code", Value: 400},
+				},
+			},
+		},
+		SetStatus: &Status{
+			Code: "Ok",
+		},
+	}
+	tp, err := factory.CreateTracesProcessor(context.Background(), processortest.NewNopCreateSettings(), cfg, consumertest.NewNop())
+	require.Nil(t, err)
+	require.NotNil(t, tp)
+
+	td := generateTraceDataSetStatus(ptrace.StatusCodeUnset, "foobar", map[string]any{"http.status_code": "400"})
+
+	assert.NoError(t, tp.ConsumeTraces(context.Background(), td))
+
+	assert.EqualValues(t, generateTraceDataSetStatus(ptrace.StatusCodeOk, "", map[string]any{"http.status_code": 400}), td)
+}
+
+func TestSpanProcessor_setStatusCodeOkWithBooleanAttributeMatch(t *testing.T) {
+	factory := NewFactory()
+	cfg := &Config{
+		MatchConfig: filterconfig.MatchConfig{
+			Include: &filterconfig.MatchProperties{
+				Config: filterset.Config{
+					MatchType: "strict",
+				},
+				Attributes: []filterconfig.Attribute{
+					{Key: "error", Value: "true"},
+				},
+			},
+		},
+		SetStatus: &Status{
+			Code: "Ok",
+		},
+	}
+	tp, err := factory.CreateTracesProcessor(context.Background(), processortest.NewNopCreateSettings(), cfg, consumertest.NewNop())
+	require.Nil(t, err)
+	require.NotNil(t, tp)
+
+	td := generateTraceDataSetStatus(ptrace.StatusCodeUnset, "foobar", map[string]any{"error": true})
+
+	assert.NoError(t, tp.ConsumeTraces(context.Background(), td))
+
+	assert.EqualValues(t, generateTraceDataSetStatus(ptrace.StatusCodeOk, "", map[string]any{"error": true}), td)
+}
+
+func TestSpanProcessor_setStatusCodeOkAlways(t *testing.T) {
+	factory := NewFactory()
+	cfg := &Config{
+		SetStatus: &Status{
+			Code: "Ok",
+		},
+	}
+	tp, err := factory.CreateTracesProcessor(context.Background(), processortest.NewNopCreateSettings(), cfg, consumertest.NewNop())
+	require.Nil(t, err)
+	require.NotNil(t, tp)
+
+	td := generateTraceDataSetStatus(ptrace.StatusCodeUnset, "foobar", map[string]any{"error": true})
+
+	assert.NoError(t, tp.ConsumeTraces(context.Background(), td))
+
+	assert.EqualValues(t, generateTraceDataSetStatus(ptrace.StatusCodeOk, "", map[string]any{"error": true}), td)
+}
