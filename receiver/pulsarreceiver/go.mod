@@ -7,6 +7,12 @@ require (
 	github.com/apache/thrift v0.19.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/jaegertracing/jaeger v1.52.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding v0.91.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jaegerencodingextension v0.91.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jsonlogencodingextension v0.91.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/otlpencodingextension v0.91.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/textencodingextension v0.91.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/zipkinencodingextension v0.91.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger v0.91.0
 	github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/zipkin v0.91.0
 	github.com/openzipkin/zipkin-go v0.4.2
@@ -67,6 +73,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	go.opentelemetry.io/collector/config/configtelemetry v0.91.0 // indirect
+	go.opentelemetry.io/collector/extension v0.91.0 // indirect
 	go.opentelemetry.io/collector/featuregate v1.0.0 // indirect
 	go.opentelemetry.io/otel v1.21.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
@@ -101,3 +108,15 @@ replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatatest => ../../pkg/pdatatest
 
 replace github.com/open-telemetry/opentelemetry-collector-contrib/pkg/golden => ../../pkg/golden
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding => ../../extension/encoding
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jaegerencodingextension => ../../extension/encoding/jaegerencodingextension
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/otlpencodingextension => ../../extension/encoding/otlpencodingextension
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/zipkinencodingextension => ../../extension/encoding/zipkinencodingextension
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jsonlogencodingextension => ../../extension/encoding/jsonlogencodingextension
+
+replace github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/textencodingextension => ../../extension/encoding/textencodingextension
