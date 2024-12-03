@@ -24,7 +24,7 @@ require (
 	go.opentelemetry.io/collector/consumer v0.114.1-0.20241202231142-b9ff1bc54c99
 	go.opentelemetry.io/collector/exporter v0.114.1-0.20241202231142-b9ff1bc54c99
 	go.opentelemetry.io/collector/exporter/exportertest v0.114.1-0.20241202231142-b9ff1bc54c99
-	go.opentelemetry.io/collector/extension/auth/authtest v0.0.0-20241120164440-f2e05b5089bb
+	go.opentelemetry.io/collector/extension/auth/authtest v0.0.0-20241202231142-b9ff1bc54c99
 	go.opentelemetry.io/collector/pdata v1.20.1-0.20241202231142-b9ff1bc54c99
 	go.opentelemetry.io/collector/semconv v0.114.1-0.20241202231142-b9ff1bc54c99
 	go.uber.org/goleak v1.3.0
