@@ -2,8 +2,6 @@ module github.com/open-telemetry/opentelemetry-collector-contrib/receiver/netflo
 
 go 1.22.0
 
-toolchain go1.22.2
-
 require (
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/collector/component v0.114.1-0.20241202231142-b9ff1bc54c99
