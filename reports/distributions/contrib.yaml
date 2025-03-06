@@ -54,7 +54,6 @@ components:
         - rabbitmq
         - sapm
         - sentry
-        - signalfx
         - splunk_hec
         - stef
         - sumologic
