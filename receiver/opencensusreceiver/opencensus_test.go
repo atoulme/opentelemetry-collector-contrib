@@ -54,8 +54,6 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/opencensusreceiver/internal/metadata"
 )
 
-var ocReceiverID = component.NewIDWithName(metadata.Type, "receiver_test")
-
 func TestGrpcGateway_endToEnd(t *testing.T) {
 	addr := testutil.GetAvailableLocalAddress(t)
 
