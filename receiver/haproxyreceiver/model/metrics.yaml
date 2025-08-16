@@ -1,0 +1,315 @@
+groups:
+  - id: haproxy.connections.rate
+    type: metric
+    metric_name: haproxy.connections.rate
+    stability: beta
+    brief: "Number of connections over the last elapsed second (frontend). Corresponds to HAProxy's `conn_rate` metric."
+    instrument: gauge
+    unit: "{connections}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.sessions.count
+    type: metric
+    metric_name: haproxy.sessions.count
+    stability: beta
+    brief: Current sessions. Corresponds to HAProxy's `scur` metric.
+    instrument: gauge
+    unit: "{sessions}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.connections.total
+    type: metric
+    metric_name: haproxy.connections.total
+    stability: beta
+    brief: Cumulative number of connections (frontend). Corresponds to HAProxy's `conn_tot` metric.
+    instrument: counter
+    unit: "{connections}"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.server_selected.total
+    type: metric
+    metric_name: haproxy.server_selected.total
+    stability: beta
+    brief: Number of times a server was selected, either for new sessions or when re-dispatching. Corresponds to HAProxy's `lbtot` metric.
+    instrument: counter
+    unit: "{selections}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.bytes.input
+    type: metric
+    metric_name: haproxy.bytes.input
+    stability: beta
+    brief: Bytes in. Corresponds to HAProxy's `bin` metric.
+    instrument: counter
+    unit: by
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.bytes.output
+    type: metric
+    metric_name: haproxy.bytes.output
+    stability: beta
+    brief: Bytes out. Corresponds to HAProxy's `bout` metric.
+    instrument: counter
+    unit: by
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.clients.canceled
+    type: metric
+    metric_name: haproxy.clients.canceled
+    stability: beta
+    brief: Number of data transfers aborted by the client. Corresponds to HAProxy's `cli_abrt` metric
+    instrument: counter
+    unit: "{cancellations}"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.compression.bypass
+    type: metric
+    metric_name: haproxy.compression.bypass
+    stability: beta
+    brief: Number of bytes that bypassed the HTTP compressor (CPU/BW limit). Corresponds to HAProxy's `comp_byp` metric.
+    instrument: counter
+    unit: "by"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.compression.input
+    type: metric
+    metric_name: haproxy.compression.input
+    stability: beta
+    brief: Number of HTTP response bytes fed to the compressor. Corresponds to HAProxy's `comp_in` metric.
+    instrument: counter
+    unit: "by"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.compression.output
+    type: metric
+    metric_name: haproxy.compression.output
+    stability: beta
+    brief: Number of HTTP response bytes emitted by the compressor. Corresponds to HAProxy's `comp_out` metric.
+    instrument: counter
+    unit: "by"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.compression.count
+    type: metric
+    metric_name: haproxy.compression.count
+    stability: beta
+    brief: Number of HTTP responses that were compressed. Corresponds to HAProxy's `comp_rsp` metric.
+    instrument: counter
+    unit: "{responses}"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.denied
+    type: metric
+    metric_name: haproxy.requests.denied
+    stability: beta
+    brief: Requests denied because of security concerns. Corresponds to HAProxy's `dreq` metric
+    instrument: counter
+    unit: "{requests}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.responses.denied
+    type: metric
+    metric_name: haproxy.responses.denied
+    stability: beta
+    brief: Responses denied because of security concerns. Corresponds to HAProxy's `dresp` metric
+    instrument: counter
+    unit: "{responses}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.downtime
+    type: metric
+    metric_name: haproxy.downtime
+    stability: beta
+    brief: Total downtime (in seconds). The value for the backend is the downtime for the whole backend, not the sum of the server downtime. Corresponds to HAProxy's `downtime` metric
+    instrument: counter
+    unit: "s"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.connections.errors
+    type: metric
+    metric_name: haproxy.connections.errors
+    stability: beta
+    brief: Number of requests that encountered an error trying to connect to a backend server. The backend stat is the sum of the stat. Corresponds to HAProxy's `econ` metric
+    instrument: counter
+    unit: "{errors}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.errors
+    type: metric
+    metric_name: haproxy.requests.errors
+    stability: beta
+    brief: Cumulative number of request errors. Corresponds to HAProxy's `ereq` metric.
+    instrument: counter
+    unit: "{errors}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.responses.errors
+    type: metric
+    metric_name: haproxy.responses.errors
+    stability: beta
+    brief: Cumulative number of response errors. Corresponds to HAProxy's `eresp` metric, `srv_abrt` will be counted here also.
+    instrument: counter
+    unit: "{errors}"
+    annotations:
+      scraper:
+        enabled: true
+        value_type: int
+  - id: haproxy.failed_checks
+    type: metric
+    metric_name: haproxy.failed_checks
+    stability: beta
+    brief: Number of failed checks. (Only counts checks failed when the server is up). Corresponds to HAProxy's `chkfail` metric.
+    instrument: counter
+    unit: "{checks}"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.redispatched
+    type: metric
+    metric_name: haproxy.requests.redispatched
+    stability: beta
+    brief: Number of times a request was redispatched to another server. Corresponds to HAProxy's `wredis` metric.
+    instrument: counter
+    unit: "{requests}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.total
+    type: metric
+    metric_name: haproxy.requests.total
+    stability: beta
+    brief: Total number of HTTP requests received. Corresponds to HAProxy's `req_tot`, `hrsp_1xx`, `hrsp_2xx`, `hrsp_3xx`, `hrsp_4xx`, `hrsp_5xx` and `hrsp_other` metrics.
+    instrument: counter
+    unit: "{requests}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+    attributes:
+      - ref: status_code
+        requirement_level: required
+  - id: haproxy.connections.retries
+    type: metric
+    metric_name: haproxy.connections.retries
+    stability: beta
+    brief: Number of times a connection to a server was retried. Corresponds to HAProxy's `wretr` metric.
+    instrument: counter
+    unit: "{retries}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.sessions.total
+    type: metric
+    metric_name: haproxy.sessions.total
+    stability: beta
+    brief: Cumulative number of sessions. Corresponds to HAProxy's `stot` metric.
+    instrument: counter
+    unit: "{sessions}"
+    annotations:
+      scraper:
+        enabled: false
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.queued
+    type: metric
+    metric_name: haproxy.requests.queued
+    stability: beta
+    brief: Current queued requests. For the backend this reports the number queued without a server assigned. Corresponds to HAProxy's `qcur` metric.
+    instrument: counter
+    unit: "{requests}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: int
+  - id: haproxy.requests.rate
+    type: metric
+    metric_name: haproxy.requests.rate
+    stability: beta
+    brief: "HTTP requests per second over last elapsed second. Corresponds to HAProxy's `req_rate` metric."
+    instrument: gauge
+    unit: "{requests}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: double
+  - id: haproxy.sessions.average
+    type: metric
+    metric_name: haproxy.sessions.average
+    stability: beta
+    brief: Average total session time in ms over the last 1024 requests. Corresponds to HAProxy's `ttime` metric.
+    instrument: gauge
+    unit: "ms"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: double
+  - id: haproxy.sessions.rate
+    type: metric
+    metric_name: haproxy.sessions.rate
+    stability: beta
+    brief: Number of sessions per second over last elapsed second. Corresponds to HAProxy's `rate` metric.
+    instrument: gauge
+    unit: "{sessions}"
+    annotations:
+      scraper:
+        enabled: true
+        input_type: string
+        value_type: double

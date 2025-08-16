@@ -8,6 +8,7 @@ status:
   codeowners:
     active: [atoulme, MovieStoreGuy]
 
+
 resource_attributes:
   haproxy.addr:
     description: address:port or "unix". IPv6 has brackets around the address.
@@ -26,13 +27,6 @@ attributes:
   status_code:
     description: Status code category, 1xx, 2xx, 3xx, 4xx, 5xx or other
     type: string
-    enum:
-      - "1xx"
-      - "2xx"
-      - "3xx"
-      - "4xx"
-      - "5xx"
-      - "other"
 
 
 metrics:
@@ -76,7 +70,7 @@ metrics:
       monotonic: true
       value_type: int
       input_type: string
-    unit: by
+    unit: "by"
   haproxy.bytes.output:
     description: Bytes out. Corresponds to HAProxy's `bout` metric.
     enabled: true
@@ -85,7 +79,7 @@ metrics:
       monotonic: true
       value_type: int
       input_type: string
-    unit: by
+    unit: "by"
   haproxy.clients.canceled:
     description: Number of data transfers aborted by the client. Corresponds to HAProxy's `cli_abrt` metric
     enabled: false
@@ -103,7 +97,7 @@ metrics:
       monotonic: true
       value_type: int
       input_type: string
-    unit: by
+    unit: "by"
   haproxy.compression.input:
     description: Number of HTTP response bytes fed to the compressor. Corresponds to HAProxy's `comp_in` metric.
     enabled: false
@@ -112,7 +106,7 @@ metrics:
       monotonic: true
       value_type: int
       input_type: string
-    unit: by
+    unit: "by"
   haproxy.compression.output:
     description: Number of HTTP response bytes emitted by the compressor. Corresponds to HAProxy's `comp_out` metric.
     enabled: false
@@ -121,7 +115,7 @@ metrics:
       monotonic: true
       value_type: int
       input_type: string
-    unit: by
+    unit: "by"
   haproxy.compression.count:
     description: Number of HTTP responses that were compressed. Corresponds to HAProxy's `comp_rsp` metric.
     enabled: false
@@ -150,14 +144,14 @@ metrics:
       input_type: string
     unit: "{responses}"
   haproxy.downtime:
-    description:  Total downtime (in seconds). The value for the backend is the downtime for the whole backend, not the sum of the server downtime. Corresponds to HAProxy's `downtime` metric
+    description: Total downtime (in seconds). The value for the backend is the downtime for the whole backend, not the sum of the server downtime. Corresponds to HAProxy's `downtime` metric
     enabled: false
     sum:
       aggregation_temporality: cumulative
       monotonic: true
       value_type: int
       input_type: string
-    unit: s
+    unit: "s"
   haproxy.connections.errors:
     description: Number of requests that encountered an error trying to connect to a backend server. The backend stat is the sum of the stat. Corresponds to HAProxy's `econ` metric
     enabled: true
@@ -183,6 +177,7 @@ metrics:
       aggregation_temporality: cumulative
       monotonic: true
       value_type: int
+      
     unit: "{errors}"
   haproxy.failed_checks:
     description: Number of failed checks. (Only counts checks failed when the server is up). Corresponds to HAProxy's `chkfail` metric.
@@ -253,7 +248,7 @@ metrics:
     gauge:
       value_type: double
       input_type: string
-    unit: ms
+    unit: "ms"
   haproxy.sessions.rate:
     description: Number of sessions per second over last elapsed second. Corresponds to HAProxy's `rate` metric.
     enabled: true

@@ -1,0 +1,37 @@
+version: '1'
+groups:
+  - id: resource.attributes
+    type: attribute_group
+    brief: Resource attributes
+    attributes:
+      - id: haproxy.addr
+        brief: address:port or "unix". IPv6 has brackets around the address.
+        type: string
+        stability: beta
+        examples: [ "localhost:80", "unix" ]
+      - id: haproxy.proxy_name
+        brief: Proxy name
+        type: string
+        stability: beta
+        examples: [ "stats" ]
+      - id: haproxy.service_name
+        brief: Service name (FRONTEND for frontend, BACKEND for backend, any name for server/listener)
+        type: string
+        stability: beta
+        examples: [ "FRONTEND", "BACKEND" ]
+
+  - id: metric.attributes
+    type: attribute_group
+    brief: Metric attributes
+    attributes:
+      - id: status_code
+        type: string
+        brief: Status code category, 1xx, 2xx, 3xx, 4xx, 5xx or other
+        stability: beta
+        examples:
+          - "1xx"
+          - "2xx"
+          - "3xx"
+          - "4xx"
+          - "5xx"
+          - "other"
