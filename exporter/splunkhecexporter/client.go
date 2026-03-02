@@ -679,7 +679,7 @@ func buildHTTPHeaders(config *Config, buildInfo component.BuildInfo) map[string]
 
 // marshalEvent marshals an event to JSON
 func marshalEvent(event *translator.Event, sizeLimit uint) ([]byte, error) {
-	b, err := json.Marshal(event)
+	b, err := json.MarshalWithOption(event, json.DisableHTMLEscape())
 	if err != nil {
 		return nil, err
 	}

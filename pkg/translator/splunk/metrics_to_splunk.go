@@ -278,7 +278,7 @@ func MergeEventsToMultiMetricFormat(events []*Event) ([]*Event, error) {
 	for _, e := range events {
 		cloned := copyEventWithoutValues(e)
 
-		data, err := json.Marshal(cloned)
+		data, err := json.MarshalWithOption(cloned, json.DisableHTMLEscape())
 		if err != nil {
 			return nil, err
 		}

@@ -51,6 +51,29 @@ func Test_mapLogRecordToSplunkEvent(t *testing.T) {
 			},
 		},
 		{
+			name: "html chars",
+			logRecordFn: func() plog.LogRecord {
+				logRecord := plog.NewLogRecord()
+				logRecord.Body().SetStr("mylog >&<")
+				logRecord.Attributes().PutStr(splunk.DefaultSourceLabel, "myapp")
+				logRecord.Attributes().PutStr(splunk.DefaultSourceTypeLabel, "myapp-type")
+				logRecord.Attributes().PutStr("host.name", "myhost")
+				logRecord.Attributes().PutStr("custom", "custom >&<")
+				logRecord.SetTimestamp(ts)
+				return logRecord
+			},
+			logResourceFn: pcommon.NewResource,
+			toOtelAttrs:   DefaultHecToOtelAttrs(),
+			toHecAttrs:    DefaultOtelToHecFields(),
+			source:        "source",
+			sourceType:    "sourcetype",
+			index:         "",
+			wantSplunkEvents: []*Event{
+				commonLogSplunkEvent("mylog >&<", ts, map[string]any{"custom": "custom >&<"},
+					"myhost", "myapp", "myapp-type"),
+			},
+		},
+		{
 			name: "with_name",
 			logRecordFn: func() plog.LogRecord {
 				logRecord := plog.NewLogRecord()
