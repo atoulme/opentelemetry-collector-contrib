@@ -547,6 +547,12 @@ func Test_mergeValue(t *testing.T) {
 			val:      map[string]any{"1": 1, "2": 2, "nested": map[string]any{"3": 3, "nested_array": []any{4, []any{5}}}},
 			expected: map[string]any{"mapKey.1": 1, "mapKey.2": 2, "mapKey.nested.3": 3, "mapKey.nested.nested_array": "[4,[5]]"},
 		},
+		{
+			name:     "html escape",
+			key:      "mapKey",
+			val:      map[string]any{"1": "<>&", "nested": map[string]any{"3": 3, "nested_array": []any{"<>&", []any{5}}}},
+			expected: map[string]any{"mapKey.1": "<>&", "mapKey.nested.3": 3, "mapKey.nested.nested_array": "[\"<>&\",[5]]"},
+		},
 	}
 
 	for _, tt := range tests {
