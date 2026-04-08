@@ -21,6 +21,7 @@ components:
     - connector/failover
     - connector/grafanacloud
     - connector/metrics_as_logs
+    - connector/ocsf
     - connector/otlp_json
     - connector/round_robin
     - connector/routing
